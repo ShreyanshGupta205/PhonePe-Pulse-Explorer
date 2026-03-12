@@ -32,21 +32,27 @@ st.markdown("""
     
     .stMetric {
         background-color: white;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        border-left: 5px solid var(--secondary-color);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid var(--primary-color);
+        transition: transform 0.2s;
+    }
+    
+    .stMetric:hover {
+        transform: translateY(-5px);
     }
     
     [data-testid="stSidebar"] {
-        background-color: white;
-        border-right: 1px solid #e0e0e0;
+        background-color: #ffffff;
+        border-right: 1px solid #f0f0f0;
     }
     
-    /* Hide top header padding */
-    .block-container {
-        padding-top: 2rem !important;
-        padding-bottom: 2rem !important;
+    .sidebar-footer {
+        position: fixed;
+        bottom: 20px;
+        font-size: 0.8rem;
+        color: #888;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -90,6 +96,12 @@ st.session_state.filters = {
 }
 
 st.sidebar.markdown("---")
+st.sidebar.markdown("""
+<div class='sidebar-footer'>
+    Built with ❤️ for Digital India<br>
+    <b>PaisaPulse v1.0</b>
+</div>
+""", unsafe_allow_html=True)
 
 # Define Navigation
 overview = st.Page("pages/1_Overview.py", title="Overview", icon="📈", default=True)
