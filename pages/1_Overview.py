@@ -28,13 +28,13 @@ total_users = df_usr.groupby(['state', 'district'])['registered_users'].max().su
 total_opens = df_usr['app_opens'].sum()
 
 with col1:
-    st.metric(label="Total Transactions", value=f"{total_tx:,.0f}")
+    st.metric(label="Total Transactions", value=f"{total_tx:,.0f}", help="Total number of transactions across all selected filters.")
 with col2:
-    st.metric(label="Total Value (₹)", value=f"₹{total_amt:,.0f}")
+    st.metric(label="Total Value (₹)", value=f"₹{total_amt:,.0f}", help="Cumulative monetary value of transactions.")
 with col3:
-    st.metric(label="Registered Users", value=f"{total_users:,.0f}")
+    st.metric(label="Registered Users", value=f"{total_users:,.0f}", help="Approximate number of registered users in selected regions.")
 with col4:
-    st.metric(label="App Opens", value=f"{total_opens:,.0f}")
+    st.metric(label="App Opens", value=f"{total_opens:,.0f}", help="Total number of times the app was opened.")
 
 st.markdown("---")
 
@@ -57,9 +57,18 @@ with col2:
 
 st.markdown("---")
 
-# Top 10 States
-st.markdown("### 🔝 Top 10 States by Transactions")
-top_states = df_tx.groupby('state')['transaction_count'].sum().reset_index()
-top_states = top_states.sort_values(by='transaction_count', ascending=False).head(10)
-fig_states = create_bar_chart(top_states, 'state', 'transaction_count', None)
-st.plotly_chart(fig_states, use_container_width=True)
+# Catgeory Breakdown and Top States
+col3, col4 = st.columns([1, 1])
+
+with col3:
+    st.markdown("### 🏷️ Category Breakdown")
+    cat_df = df_tx.groupby('transaction_type')['transaction_amount'].sum().reset_index()
+    cat_df = cat_df.sort_values(by='transaction_amount', ascending=False)
+    st.dataframe(cat_df, hide_index=True, use_container_width=True)
+
+with col4:
+    st.markdown("### 🔝 Top States")
+    top_states = df_tx.groupby('state')['transaction_count'].sum().reset_index()
+    top_states = top_states.sort_values(by='transaction_count', ascending=False).head(10)
+    fig_states = create_bar_chart(top_states, 'state', 'transaction_count', None)
+    st.plotly_chart(fig_states, use_container_width=True)
