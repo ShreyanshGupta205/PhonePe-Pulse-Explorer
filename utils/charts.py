@@ -51,7 +51,7 @@ def create_bar_chart(df, x_col, y_col, title, orientation='v', color_col=None):
 
 def create_pie_chart(df, names_col, values_col, title):
     fig = px.pie(df, names=names_col, values=values_col, hole=0.5,
-                 color_discrete_sequence=[PRIMARY_COLOR, ACCENT_COLOR, "#ff6b6b", "#feca57", "#48dbfb"])
+                 color_discrete_sequence=["#5f259f", "#00d09c", "#ff9f43", "#ff6b6b", "#48dbfb"])
     fig.update_traces(textposition='inside', textinfo='percent+label')
     fig = apply_fintech_theme(fig)
     fig.update_layout(showlegend=False)
