@@ -83,6 +83,16 @@ def load_data():
     
     return df_transactions, df_users
 
+@st.cache_data
+def get_state_summary(df):
+    """
+    Summarizes transaction data by state.
+    """
+    return df.groupby('state').agg({
+        'transaction_count': 'sum',
+        'transaction_amount': 'sum'
+    }).reset_index()
+
 def get_filtered_data(df, year=None, quarter=None, state=None, tx_type=None):
     """
     Utility function to filter data based on selected parameters.
