@@ -97,14 +97,18 @@ def get_filtered_data(df, year=None, quarter=None, state=None, tx_type=None):
     """
     Utility function to filter data based on selected parameters.
     """
-    filtered_df = df.copy()
-    if year:
-        filtered_df = filtered_df[filtered_df['year'] == year]
-    if quarter:
-        filtered_df = filtered_df[filtered_df['quarter'] == quarter]
-    if state:
-        filtered_df = filtered_df[filtered_df['state'] == state]
-    if tx_type and 'transaction_type' in filtered_df.columns:
-        filtered_df = filtered_df[filtered_df['transaction_type'] == tx_type]
-        
-    return filtered_df
+    try:
+        filtered_df = df.copy()
+        if year:
+            filtered_df = filtered_df[filtered_df['year'] == year]
+        if quarter:
+            filtered_df = filtered_df[filtered_df['quarter'] == quarter]
+        if state:
+            filtered_df = filtered_df[filtered_df['state'] == state]
+        if tx_type and 'transaction_type' in filtered_df.columns:
+            filtered_df = filtered_df[filtered_df['transaction_type'] == tx_type]
+            
+        return filtered_df
+    except Exception as e:
+        st.error(f"Error filtering data: {e}")
+        return df
