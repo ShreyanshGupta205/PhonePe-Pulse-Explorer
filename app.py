@@ -3,7 +3,7 @@ from utils.data_loader import load_data, get_filtered_data
 
 # Must be the first Streamlit command
 st.set_page_config(
-    page_title="PhonePe Pulse Dashboard",
+    page_title="PaisaPulse Explorer",
     page_icon="💸",
     layout="wide",
     initial_sidebar_state="expanded"
